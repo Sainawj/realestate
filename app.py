@@ -1,16 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from flask_mysql_connector import MySQL
+from flask_mysqldb import MySQL
 import bcrypt
 
 app = Flask(__name__)
 app.secret_key = '9b3106234d87f82e33ca407254cc7aac'
 
 # MySQL configuration
-mysql = MySQL(app)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'reuser'
 app.config['MYSQL_PASSWORD'] = 'password123'
-app.config['MYSQL_DATABASE'] = 'real_estate_db'
+app.config['MYSQL_DB'] = 'real_estate_db'
+
+mysql = MySQL(app)
 
 @app.route('/')
 def index():
