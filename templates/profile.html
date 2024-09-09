@@ -4,25 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h2>My Profile</h2>
-        <form action="{{ url_for('profile') }}" method="POST" enctype="multipart/form-data">
-            <label for="full_name">Full Name:</label>
-            <input type="text" id="full_name" name="full_name" value="{{ user.full_name }}" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="{{ user.email }}" required>
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" value="{{ user.phone }}">
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" value="{{ user.location }}">
-            <label for="profile_image">Profile Image:</label>
-            <input type="file" id="profile_image" name="profile_image">
-            <button type="submit">Update Profile</button>
-        </form>
-    </div>
+    <h1>Profile</h1>
+    <form method="POST" action="{{ url_for('profile') }}">
+        <input type="text" name="username" placeholder="New Username" required>
+        <input type="password" name="password" placeholder="New Password" required>
+        <button type="submit">Update</button>
+    </form>
+    <a href="{{ url_for('index') }}">Home</a>
 </body>
 </html>
 
