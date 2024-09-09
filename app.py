@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+import mysql.connector
+import os
 from flask_mysql_connector import MySQL
 import bcrypt
 
