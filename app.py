@@ -23,8 +23,8 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        username = request.form.get('username')
+        password = request.form.get('password')
 
         # Query the database for the user
         cursor = mysql.connection.cursor()
@@ -37,7 +37,7 @@ def login():
             session['username'] = username
             return redirect(url_for('index'))
         else:
-            return 'Invalid credentials'
+            return 'Invalid credentials', 400
 
     return render_template('login.html')
 
@@ -50,8 +50,8 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        username = request.form.get('username')
+        password = request.form.get('password')
 
         # Hash password
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
@@ -71,8 +71,8 @@ def profile():
     if 'loggedin' in session:
         username = session['username']
         if request.method == 'POST':
-            new_username = request.form['username']
-            new_password = request.form['password']
+            new_username = request.form.get('username')
+            new_password = request.form.get('password')
 
             # Hash new password
             hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
