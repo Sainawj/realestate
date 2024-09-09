@@ -2,17 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
 </head>
 <body>
     <h1>Profile</h1>
-    <form method="POST" action="{{ url_for('profile') }}">
-        <input type="text" name="username" placeholder="New Username" required>
-        <input type="password" name="password" placeholder="New Password" required>
-        <button type="submit">Update</button>
+    <form action="{{ url_for('profile') }}" method="POST">
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="{{ user.email }}" required>
+        <label for="full_name">Full Name:</label>
+        <input type="text" name="full_name" value="{{ user.full_name }}">
+        <label for="location">Location:</label>
+        <input type="text" name="location" value="{{ user.location }}">
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone" value="{{ user.phone }}">
+        <label for="password">New Password:</label>
+        <input type="password" name="password">
+        <button type="submit">Update Profile</button>
     </form>
-    <a href="{{ url_for('index') }}">Home</a>
 </body>
 </html>
 
