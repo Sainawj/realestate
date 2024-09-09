@@ -1,24 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile</title>
-</head>
-<body>
-    <h1>Profile</h1>
-    <form action="{{ url_for('profile') }}" method="POST">
-        <label for="email">Email:</label>
-        <input type="email" name="email" value="{{ user.email }}" required>
-        <label for="full_name">Full Name:</label>
-        <input type="text" name="full_name" value="{{ user.full_name }}">
-        <label for="location">Location:</label>
-        <input type="text" name="location" value="{{ user.location }}">
-        <label for="phone">Phone:</label>
-        <input type="text" name="phone" value="{{ user.phone }}">
-        <label for="password">New Password:</label>
-        <input type="password" name="password">
-        <button type="submit">Update Profile</button>
-    </form>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<h1>Profile</h1>
+<form method="post" action="{{ url_for('profile') }}">
+    <label for="full_name">Full Name:</label>
+    <input type="text" id="full_name" name="full_name" value="{{ user[3] }}"><br>
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" value="{{ user[4] }}"><br>
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" value="{{ user[5] }}"><br>
+    <label for="profile_image">Profile Image URL:</label>
+    <input type="text" id="profile_image" name="profile_image" value="{{ user[8] }}"><br>
+    <button type="submit">Update</button>
+</form>
+{% endblock %}
 
