@@ -1,0 +1,68 @@
+from flask import Flask, render_template, request, redirect, url_for
+import mysql.connector
+import os
+from werkzeug.utils import secure_filename
+
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'static/images'
+
+# Database connection
+def get_db_connection():
+    return mysql.connector.connect(
+        host="localhost",
+        user="real_estate_user",
+        password="password123",
+        database="real_estate_db"
+    )
+
+# Route to display the add property form
+@app.route('/add_property')
+def add_property():
+    return render_template('add_property.html')
+
+# Route to save the new property to the database
+@app.route('/save_property', methods=['POST'])
+def save_property():
+    location = request.form['location']
+    cost = request.form['cost']
+    rating = request.form['rating']
+    image = request.files['image']
+
+    # Save the image to the static/images directory
+    image_filename = secure_filename(image.filename)
+    image.save(os.path.join(app.config['UPLOAD_FOLDER'], image_filename))
+
+    # Insert the new property into the database
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO properties (location, cost, rating, image_url)
+        VALUES (%s, %s, %s, %s)
+    """, (location, cost, rating, f'images/{image_filename}'))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for('index'))
+
+# Route to display the homepage
+@app.route('/')
+def index():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    # Fetch user information
+    cursor.execute("SELECT * FROM users WHERE id = 1")
+    user_info = cursor.fetchone()
+
+    # Fetch the 4 most recently added properties
+    cursor.execute("SELECT * FROM properties ORDER BY id DESC LIMIT 4")
+    recent_properties = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return render_template('index.html', user=user_info, properties=recent_properties)
+
+if __name__ == '__main__':
+    app.run(debug=True)

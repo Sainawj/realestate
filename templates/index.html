@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#">About us</a>
+        {% if user %}
+        <a href="{{ url_for('profile') }}">My Profile</a>
+        <a href="#">Property Listings</a>
+        <a href="#">Share/List Property</a>
+        <a href="{{ url_for('logout') }}">Log out</a>
+        {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Create Account</a>
+        {% endif %}
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        {% if user %}
+        <!-- User Dashboard -->
+        <div class="user-dashboard">
+            <!-- User Information -->
+            <div class="user-info">
+                <div class="user-image">
+                    <img src="{{ url_for('static', filename=user['profile_image']) }}" alt="User Image">
+                </div>
+                <h3>User Information</h3>
+                <p>Full Names: {{ user['full_name'] }}</p>
+                <p>Location: {{ user['location'] }}</p>
+                <p>Email Address: {{ user['email'] }}</p>
+                <p>Phone: {{ user['phone'] }}</p>
+                <p>Properties Owned: {{ user['properties_owned'] }}</p>
+                <p>Properties Leased: {{ user['properties_leased'] }}</p>
+
+                <!-- Expenditure vs Income Chart -->
+                <div class="expenditure-income-chart">
+                    <h4>Expenditure vs Income</h4>
+                    <canvas id="expenditureIncomeChart" width="150" height="150"></canvas>
+                </div>
+            </div>
+
+            <!-- Dashboard with Blockchain Transaction Data -->
+            <div class="dashboard">
+                <div class="transaction-sample">
+                    <h3>Blockchain Transaction History</h3>
+                    <table>
+                        <tr>
+                            <th>Transaction Hash</th>
+                            <th>Transaction ID</th>
+                            <th>Timestamp</th>
+                            <th>Location</th>
+                            <th>Amount (Ksh)</th>
+                        </tr>
+                        <!-- Sample Data for Transactions -->
+                        <tr>
+                            <td>0x72b0c42ef...22da8e0d</td>
+                            <td>TX-001</td>
+                            <td>2024-09-05 14:22:01</td>
+                            <td>Nairobi</td>
+                            <td>10,000,000</td>
+                        </tr>
+                        <tr>
+                            <td>0xa7f5a783d...77fe45cc</td>
+                            <td>TX-002</td>
+                            <td>2024-09-05 14:25:45</td>
+                            <td>Mombasa</td>
+                            <td>8,500,000</td>
+                        </tr>
+                        <tr>
+                            <td>0x3a5e9f9bb...a5e9c42e</td>
+                            <td>TX-003</td>
+                            <td>2024-09-05 14:30:12</td>
+                            <td>Nakuru</td>
+                            <td>6,750,000</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="wallet-expenditure">
+                    <h3>Wallet Expenditure (Last 6 Months)</h3>
+                    <canvas id="walletChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Properties on Watch List -->
+        <div class="watch-list">
+            <h3>Recent Properties</h3>
+            <div class="properties">
+                {% for property in properties %}
+                <div class="property">
+                    <img src="{{ url_for('static', filename=property['image_path']) }}" alt="Property">
+                    <p>Cost: Ksh {{ property['cost'] }}</p>
+                    <p>Location: {{ property['location'] }}</p>
+                    <p>Rating: N/A</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                    <button class="rate-btn">Rate</button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <h2>Welcome to the Real Estate Management System</h2>
+        <p>Please <a href="{{ url_for('login') }}">login</a> to access more features.</p>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+</body>
+</html>
+

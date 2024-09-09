@@ -1,0 +1,71 @@
+/* Sidebar styles */
+.sidebar {
+    width: 200px;
+    height: 100%;
+    position: fixed;
+    background-color: #f1f1f1;
+    padding-top: 20px;
+}
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 210px;
+    padding: 20px;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+.search-input {
+    width: 200px;
+    padding: 5px;
+}
+.filter-location, .filter-price {
+    padding: 5px;
+}
+
+/* User Information and Dashboard */
+.user-dashboard {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.user-info {
+    width: 30%;
+}
+.user-image img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.expenditure-income-chart {
+    margin-top: 20px;
+}
+.dashboard {
+    width: 65%;
+}
+
+/* Property Watch List */
+.watch-list {
+    margin-top: 30px;
+}
+.properties {
+    display: flex;
+    justify-content: space-between;
+}
+.property img {
+    width: 200px;
+    height: 150px;
+}
+.add-to-cart-btn, .rate-btn {
+    margin-top: 10px;
+    padding: 5px 10px;
+}
+

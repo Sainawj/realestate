@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Property</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="main-content">
+        <h2>Add New Property</h2>
+        <form action="{{ url_for('save_property') }}" method="POST" enctype="multipart/form-data">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+
+            <label for="cost">Cost (Ksh):</label>
+            <input type="number" id="cost" name="cost" required>
+
+            <label for="rating">Rating:</label>
+            <input type="number" id="rating" name="rating" step="0.1" min="0" max="5" required>
+
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+
+            <button type="submit">Add Property</button>
+        </form>
+    </div>
+</body>
+</html>
+

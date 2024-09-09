@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#">About us</a>
+        <a href="#">My Profile</a>
+        <a href="#">Property Listings</a>
+        <a href="{{ url_for('add_property') }}">Share/List Property</a> <!-- Link to Add Property -->:
+	<a href="#">Log out</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Search Bar with Filters -->
+        <div class="header">
+            <input type="text" placeholder="Search Property" class="search-input">
+            <select class="filter-location">
+                <option value="">Location</option>
+                <option value="Nairobi">Nairobi</option>
+                <option value="Nakuru">Nakuru</option>
+                <option value="Eldoret">Eldoret</option>
+                <option value="Mombasa">Mombasa</option>
+                <option value="Kisumu">Kisumu</option>
+            </select>
+            <select class="filter-price">
+                <option value="">Price Range</option>
+                <option value="100000-500000">Ksh 100,000 - 500,000</option>
+                <option value="500000-1000000">Ksh 500,000 - 1,000,000</option>
+                <option value="1000000-5000000">Ksh 1,000,000 - 5,000,000</option>
+                <option value="5000000+">Above Ksh 5,000,000</option>
+            </select>
+        </div>
+
+        <!-- User Information and Dashboard -->
+        <div class="user-dashboard">
+            <!-- User Information -->
+            <div class="user-info">
+                <div class="user-image">
+                    <img src="{{ url_for('static', filename=user['image_url']) }}" alt="User Image">
+                </div>
+                <h3>User Information</h3>
+                <p>Full Names: {{ user['full_name'] }}</p>
+                <p>Location: {{ user['location'] }}</p>
+                <p>Email Address: {{ user['email'] }}</p>
+                <p>Phone: {{ user['phone'] }}</p>
+                <p>Properties Owned: {{ user['properties_owned'] }}</p>
+                <p>Properties Leased: {{ user['properties_leased'] }}</p>
+
+                <!-- Expenditure vs Income Chart -->
+                <div class="expenditure-income-chart">
+                    <h4>Expenditure vs Income</h4>
+                    <canvas id="expenditureIncomeChart" width="150" height="150"></canvas>
+                </div>
+            </div>
+
+            <!-- Dashboard with Blockchain Transaction Data -->
+            <div class="dashboard">
+                <!-- Properties -->
+             	<div class="watch-list">
+    <h3>Recently Added Properties</h3>
+    <div class="properties">
+        {% for property in properties %}
+        <div class="property">
+            <img src="{{ url_for('static', filename=property['image_url']) }}" alt="Property Image">
+            <p>Cost: Ksh {{ property['cost'] }}</p>
+            <p>Location: {{ property['location'] }}</p>
+            <p>Rating: {{ property['rating'] }}/5</p>
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="rate-btn">Rate</button>
+        </div>
+        {% endfor %}
+    </div>
+</div>   
+	    </div>
+            </div>
+        </div>
+
+        <!-- Additional sections -->
+    </div>
+
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+</body>
+</html>
+
