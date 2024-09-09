@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-    {% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block title %}Home{% endblock %}
 
@@ -12,14 +6,4 @@
 <h1>Welcome to the Real Estate Dashboard</h1>
 <p>This is the home page.</p>
 {% endblock %}
-    {% if loggedin %}
-    <h1>Welcome, {{ session['email'] }}!</h1>
-    <a href="{{ url_for('profile') }}">Profile</a>
-    <a href="{{ url_for('logout') }}">Logout</a>
-    {% else %}
-    <h1>Welcome to Real Estate App</h1>
-    <a href="{{ url_for('login') }}">Login</a>
-    <a href="{{ url_for('register') }}">Register</a>
-    {% endif %}
-</body>
-</html>
+
